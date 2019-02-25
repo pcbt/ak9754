@@ -23,7 +23,7 @@ def readData():
     msb=bus.read_byte_data(ADD,0x06)
     tot=msb<<8|lsb
     bus.read_byte_data(ADD,0x09)
-    return tot
+    return (0.4578)*twos_compliment(tot)
 
 def readCData():
     bus.read_byte_data(ADD,0x04)
@@ -31,6 +31,10 @@ def readCData():
     msb=bus.read_byte_data(ADD,0x08)
     bus.read_byte_data(ADD,0x09)
     tot=msb<<8|lsb
-    temp=(0.0019837*tot)+25
+    temp=(0.0019837*twos_compliment(tot))+25
     return temp
 
+def twos_compliment(val):
+    if(val&(1<<15)) !=0:
+        val=val-(1<<15)
+    return val
