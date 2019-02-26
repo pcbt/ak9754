@@ -35,6 +35,6 @@ def readCData():
     return temp
 
 def twos_complement(val):
-    if(val&(1<<15)) !=0:
-        val=val-(1<<16)
+    if val>32767:
+        val=val-65536
     return val
