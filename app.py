@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python
 import commands
 import RPi.GPIO as GPIO
 import time, threading
