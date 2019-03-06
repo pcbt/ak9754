@@ -11,19 +11,16 @@ def on_message(client, userdata, message):
     print str(message.payload.decode("utf-8"))
     if message.payload.decode("utf-8") == "0":
 	client.publish("ak9754/givestatus", "Connected and working")
-    buzzer_on()
-    time.sleep(3)
-    buzzer_off()
+    buzzer_beep()
 
-def buzzer_on():
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(37, GPIO.OUT)
-    GPIO.output(37, False)
 
-def buzzer_off():
+def buzzer_beep():
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(37, GPIO.OUT)
     GPIO.output(37, True)
+    time.sleep(3)
+    GPIO.output(37, False)
+
 
 def power_up():
     GPIO.setmode(GPIO.BOARD)
