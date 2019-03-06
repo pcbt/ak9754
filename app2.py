@@ -61,5 +61,4 @@ def periodic_control():
 commands.getstatusoutput('sudo poff internet2')
 power_up()
 time.sleep(12)
-ak.init_cont()
 periodic_control()
