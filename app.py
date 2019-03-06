@@ -9,7 +9,7 @@ client = mqtt.Client()
 def on_message(client, userdata, message):
     print str(message.payload.decode("utf-8"))
     if message.payload.decode("utf-8") == "0":
-      	client.publish("ak9754/givestatus", "Connected and working")
+	client.publish("ak9754/givestatus", "Connected and working")
 
 def power_up():
     GPIO.setmode(GPIO.BOARD)
@@ -22,7 +22,6 @@ def power_up():
     GPIO.cleanup()
 
 def start_module():
-    power_up()
     ppp = commands.getstatusoutput('sudo pon internet2')
 
 
@@ -40,19 +39,28 @@ def control_module():
 	return 0
 
 def periodic_control():
-    ak.init_cont()
     if control_module():
-	client.connect("testserver.airchip.com.tr")
-	print client.subscribe("ak9754/getstatus", qos = 1)
-	client.on_message = on_message
+    client.connect("testserver.airchip.com.tr")
+    print client.subscribe("ak9754/getstatus", qos = 1)
+    client.on_message = on_message
+    seatD=ak.readData()
+    if seatD==0:
+        ak.init_cont()
+	time.sleep(2)
+	print "sensor initialized"
     seatD=ak.readData()
     tempD=ak.readCData()
     data="Seat Data: "+str(seatD)+"\tTemperature Data: "+str(tempD)
-	client.publish("ak9754/test", data)
-        client.loop_start()
+    print data
+    client.publish("ak9754/test", data)
+    client.loop_start()
     threading.Timer(10,periodic_control).start()
     print "Periodic data sent!!"
 
 
 commands.getstatusoutput('sudo poff internet2')
+power_up()
+time.sleep(12)
+ak.init_cont()
 periodic_control()
+
