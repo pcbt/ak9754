@@ -1,0 +1,13 @@
+[Unit]
+Description=Seat Occupancy Service
+After=network.target.dbus.service
+
+[Service]
+Type=simple
+ExecStart=/home/pi/ak9754/app.py
+WorkingDirectory=/home/pi/ak9754/
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target

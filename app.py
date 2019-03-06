@@ -1,3 +1,4 @@
+
 import commands
 import RPi.GPIO as GPIO
 import time, threading
@@ -40,7 +41,7 @@ def control_module():
 
 def periodic_control():
     if control_module():
-    client.connect("testserver.airchip.com.tr")
+	client.connect("testserver.airchip.com.tr")
     print client.subscribe("ak9754/getstatus", qos = 1)
     client.on_message = on_message
     seatD=ak.readData()
