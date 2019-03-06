@@ -46,8 +46,8 @@ def periodic_control():
     seatD=ak.readData()
     if seatD==0:
         ak.init_cont()
-	time.sleep(2)
-	print "sensor initialized"
+        time.sleep(2)
+        print "sensor initialized"
     seatD=ak.readData()
     tempD=ak.readCData()
     data="Seat Data: "+str(seatD)+"\tTemperature Data: "+str(tempD)
@@ -63,4 +63,3 @@ power_up()
 time.sleep(12)
 ak.init_cont()
 periodic_control()
-
